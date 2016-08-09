@@ -1,1 +1,27 @@
 <h1>{{ landing.title }}</h1>
+<label for="inputCreated">Input date</label>
+<input input-date
+    type="text"
+    name="created"
+    id="inputCreated"
+    ng-model="currentTime"
+    container=""
+    format="dd/mm/yyyy"
+    months-full="{{ month }}"
+    months-short="{{ monthShort }}"
+    weekdays-full="{{ weekdaysFull }}"
+    weekdays-short="{{ weekdaysShort }}"
+    weekdays-letter="{{ weekdaysLetter }}"
+    disable="disable"
+    min="{{ minDate }}"
+    max="{{ maxDate }}"
+    today="today"
+    clear="clear"
+    close="close"
+    select-years="15"
+    on-start="onStart()"
+    on-render="onRender()"
+    on-open="onOpen()"
+    on-close="onClose()"
+    on-set="onSet()"
+    on-stop="onStop()" />
