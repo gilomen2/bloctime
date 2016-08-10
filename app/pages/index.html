@@ -3,16 +3,27 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Bloc Base Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
     <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
-  <ui-view></ui-view>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
-    <script src="/scripts/config/firebaseConfig.js"></script>
-    <script src="/scripts/app.js"></script>
-    <script src="/scripts/controllers/LandingCtrl.js"></script>
-</body>
+  <div class="container">
+    <div class="row valign-wrapper">
+      <div class="col s12 m12 l12">
+        <ui-view></ui-view>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/2.0.1/angularfire.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.9/angular-materialize.min.js"></script>
+  <script src="/scripts/config/firebaseConfig.js"></script>
+  <script src="/scripts/app.js"></script>
+  <script src="/scripts/controllers/LandingCtrl.js"></script>
+  <script src="/scripts/controllers/TimerCtrl.js"></script>
+  <script src="/scripts/services/WorkSession.js"></script>
 </html>

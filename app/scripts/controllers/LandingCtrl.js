@@ -1,6 +1,5 @@
 (function(){
   function LandingCtrl(){
-    this.title = "Hello world!"
   }
 
   angular
