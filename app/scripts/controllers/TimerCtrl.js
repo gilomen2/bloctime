@@ -1,13 +1,19 @@
 (function(){
-  function TimerCtrl($scope, Session){
-    $scope.title = "25:00";
-    $scope.session = Session;
-    $scope.timer = {
-      timerState: "reset",
-      buttonState: "Start"
-    }
+  function TimerCtrl($scope, $interval, BadTimerService){
+    $scope.buttonText = function(){
+      if($scope.timer.state === "running"){
+        return "Stop";
+      } else if($scope.timer.state === "stopped"){
+        return "Start";
+      } else {
+        return null;
+      }
+    };
+
+    $scope.timer = BadTimerService;
   }
+
   angular
     .module('bloctime')
-    .controller('TimerCtrl', ['$scope', 'Session', TimerCtrl]);
+    .controller('TimerCtrl', ['$scope', '$interval', 'BadTimerService', TimerCtrl]);
 })();
