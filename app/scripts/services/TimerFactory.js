@@ -4,10 +4,10 @@
 
     function Timer(){
       var self = this;
-      self.time = 1500;
+      self.session = new WorkSession();
+      self.time = self.session.time;
       self.state = "stopped";
-      self.sessionType = "work";
-      self.session = null;
+      self.sessionType = self.session.sessionType;
 
       function WorkSession(){
         var self = this;
@@ -25,22 +25,26 @@
 
       var startWorkSession = function(session){
         var session = session;
-        interval = $interval(decrementTime, 1000);
         self.time = session.time;
+        interval = $interval(decrementTime, 1000, self.time);
         self.state = "running";
         self.sessionType = session.sessionType;
       };
 
       var startBreakSession = function(session){
         var session = session;
-        interval = $interval(decrementTime, 1000);
         self.time = session.time;
+        interval = $interval(decrementTime, 1000, self.time);
         self.state = "running";
         self.sessionType = session.sessionType;
       };
 
       var decrementTime = function(){
         self.time = self.time - 1;
+      };
+
+      var clearInterval = function(int){
+        $interval.cancel(int);
       };
 
       self.toggleTimer = function(){
@@ -65,10 +69,6 @@
         }
       };
 
-      var clearInterval = function(int){
-        $interval.cancel(int);
-      };
-
       self.reset = function(){
         clearInterval(interval);
         self.session = null;
@@ -80,9 +80,7 @@
         }
         self.time = self.session.time;
         self.sessionType = self.session.sessionType;
-
       };
-
     };
 
 
