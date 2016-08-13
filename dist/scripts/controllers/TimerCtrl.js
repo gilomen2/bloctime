@@ -1,9 +1,13 @@
 (function(){
-  function TimerCtrl(WorkSession){
-    this.title = "25:00";
-    this.workSession = WorkSession;
+  function TimerCtrl($scope, Session){
+    $scope.title = "25:00";
+    $scope.session = Session;
+    $scope.timer = {
+      timerState: "reset",
+      buttonState: "Start"
+    }
   }
   angular
     .module('bloctime')
-    .controller('TimerCtrl', ['WorkSession', TimerCtrl]);
+    .controller('TimerCtrl', ['$scope', 'Session', TimerCtrl]);
 })();

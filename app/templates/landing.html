@@ -1,9 +1,9 @@
-<section class="timer" ng-controller="TimerCtrl as timer">
-  <h1 class="center-align">{{ timer.title }}</h1>
+<section class="timer" ng-controller="Timer2Ctrl as timer">
+  <h1 class="center-align">{{ time }}</h1>
   <p class="center-align">
     <a class="waves-effect waves-light btn"
-      ng-click="timer.workSession.test()">
-      button
+      ng-click="toggleTimer()"
+      ng-bind="buttonText">
     </a>
   </p>
 </section>
