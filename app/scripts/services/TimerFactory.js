@@ -4,62 +4,46 @@
 
     function Timer(){
       var self = this;
-      self.session = new WorkSession();
-      self.state = "stopped";
+      self.session = new Session("work", 1500);
 
-      function WorkSession(){
+      function Session(type, time){
         var self = this;
-        self.time = 1500;
-        self.sessionType = "work";
-      }
+        self.time = time;
+        self.sessionType = type;
+        self.state = "stopped";
+        var interval;
 
-      function BreakSession(){
-        var self = this;
-        self.time = 300;
-        self.sessionType = "break";
-      }
+        self.start = function(){
+          interval = $interval(decrementTime, 1000, self.time);
+          self.state = "running";
+        };
 
-      var interval;
+        self.stop = function(){
+          $interval.cancel(interval);
+        };
 
-      var startSession = function(){
-        interval = $interval(decrementTime, 1000, self.session.time);
-        self.state = "running";
+        var decrementTime = function(){
+          self.time = self.time - 1;
+        };
       };
-
-      var decrementTime = function(){
-        self.session.time = self.session.time - 1;
-      };
-
 
       self.toggleTimer = function(){
-        $interval.cancel(interval);
-        if(self.session.sessionType === "work"){
-          if(self.state === "stopped" ) {
-            self.session = new WorkSession();
-            startSession(self.session);
-          } else if(self.state === "running"){
-            self.session = new BreakSession();
-            startSession(self.session);
-          }
+        self.session.stop();
+        if(self.session.sessionType === "work" && self.session.state === "stopped" || self.session.sessionType === "break" && self.session.state === "running"){
+          self.session = new Session("work", 1500);
+        } else {
+          self.session = new Session("break", 300);
         }
-        else if(self.session.sessionType === "break"){
-          if(self.state === "stopped"){
-            self.session = new BreakSession();
-            startSession();
-          } else if(self.state === "running"){
-            self.session = new WorkSession();
-            startSession();
-          }
-        }
+        self.session.start();
       };
 
       self.reset = function(){
-        $interval.cancel(interval);
-        self.state = "stopped";
+        self.session.stop();
+        self.session.state = "stopped";
         if(self.session.sessionType === "work"){
-          self.session = new WorkSession();
+          self.session = new Session("work", 1500);
         } else if(self.session.sessionType === "break") {
-          self.session = new BreakSession();
+          self.session = new Session("break", 300);
         }
       };
     };
