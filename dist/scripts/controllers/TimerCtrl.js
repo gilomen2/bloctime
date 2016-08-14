@@ -1,7 +1,7 @@
 (function(){
   function TimerCtrl($scope, $interval, TimerFactory){
     $scope.buttonText = function(){
-      if($scope.timer.state === "stopped" && $scope.timer.sessionType === "work" || $scope.timer.state === "running" && $scope.timer.sessionType === "break"){
+      if($scope.timer.state === "stopped" && $scope.timer.session.sessionType === "work" || $scope.timer.state === "running" && $scope.timer.session.sessionType === "break"){
         return "Start Work";
       } else {
         return "Start Break";

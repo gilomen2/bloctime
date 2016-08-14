@@ -5,9 +5,7 @@
     function Timer(){
       var self = this;
       self.session = new WorkSession();
-      self.time = self.session.time;
       self.state = "stopped";
-      self.sessionType = self.session.sessionType;
 
       function WorkSession(){
         var self = this;
@@ -23,63 +21,46 @@
 
       var interval;
 
-      var startWorkSession = function(session){
-        var session = session;
-        self.time = session.time;
-        interval = $interval(decrementTime, 1000, self.time);
+      var startSession = function(){
+        interval = $interval(decrementTime, 1000, self.session.time);
         self.state = "running";
-        self.sessionType = session.sessionType;
-      };
-
-      var startBreakSession = function(session){
-        var session = session;
-        self.time = session.time;
-        interval = $interval(decrementTime, 1000, self.time);
-        self.state = "running";
-        self.sessionType = session.sessionType;
       };
 
       var decrementTime = function(){
-        self.time = self.time - 1;
+        self.session.time = self.session.time - 1;
       };
 
-      var clearInterval = function(int){
-        $interval.cancel(int);
-      };
 
       self.toggleTimer = function(){
-        clearInterval(interval);
-        if(self.sessionType === "work"){
+        $interval.cancel(interval);
+        if(self.session.sessionType === "work"){
           if(self.state === "stopped" ) {
             self.session = new WorkSession();
-            startWorkSession(self.session);
+            startSession(self.session);
           } else if(self.state === "running"){
             self.session = new BreakSession();
-            startBreakSession(self.session);
+            startSession(self.session);
           }
         }
-        else if(self.sessionType === "break"){
+        else if(self.session.sessionType === "break"){
           if(self.state === "stopped"){
             self.session = new BreakSession();
-            startBreakSession(self.session);
+            startSession();
           } else if(self.state === "running"){
             self.session = new WorkSession();
-            startWorkSession(self.session);
+            startSession();
           }
         }
       };
 
       self.reset = function(){
-        clearInterval(interval);
-        self.session = null;
+        $interval.cancel(interval);
         self.state = "stopped";
-        if(self.sessionType === "work"){
+        if(self.session.sessionType === "work"){
           self.session = new WorkSession();
-        } else if(self.sessionType === "break") {
+        } else if(self.session.sessionType === "break") {
           self.session = new BreakSession();
         }
-        self.time = self.session.time;
-        self.sessionType = self.session.sessionType;
       };
     };
 
