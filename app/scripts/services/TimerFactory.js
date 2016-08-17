@@ -4,7 +4,7 @@
 
     function Timer(){
       var timer = this;
-      timer.session = new Session("work", 10);
+      timer.session = new Session("work", 1500);
       timer.completedWorkSessions = 0;
 
       var mySound = new buzz.sound("assets/audio/ding", {
@@ -44,13 +44,13 @@
       timer.toggleTimer = function(){
         timer.session.stop();
         if(timer.session.sessionType === "work" && timer.session.state === "stopped" || timer.session.sessionType === "break" && timer.session.state === "running"){
-          timer.session = new Session("work", 10);
+          timer.session = new Session("work", 1500);
         } else if(timer.completedWorkSessions === 4){
           timer.session = new Session("break", 1800);
           timer.completedWorkSessions = 0;
         }
         else {
-          timer.session = new Session("break", 3);
+          timer.session = new Session("break", 300);
         }
         timer.session.start();
       };
@@ -59,9 +59,9 @@
         timer.session.stop();
         timer.session.state = "stopped";
         if(timer.session.sessionType === "work"){
-          timer.session = new Session("work", 10);
+          timer.session = new Session("work", 1500);
         } else if(timer.session.sessionType === "break") {
-          timer.session = new Session("break", 3);
+          timer.session = new Session("break", 300);
         }
       };
     };
