@@ -3,8 +3,9 @@
     var TimerFactory = {};
 
     function Timer(){
-      var self = this;
-      self.session = new Session("work", 1500);
+      var timer = this;
+      timer.session = new Session("work", 1500);
+      timer.completedWorkSessions = 0;
 
       function Session(type, time){
         var self = this;
@@ -15,6 +16,7 @@
 
         self.start = function(){
           interval = $interval(decrementTime, 1000, self.time);
+          interval.then(adjustCompletedSessions);
           self.state = "running";
         };
 
@@ -25,25 +27,35 @@
         var decrementTime = function(){
           self.time = self.time - 1;
         };
+
+        var adjustCompletedSessions = function(){
+          if(self.sessionType === "work"){
+            timer.completedWorkSessions ++;
+          }
+        };
       };
 
-      self.toggleTimer = function(){
-        self.session.stop();
-        if(self.session.sessionType === "work" && self.session.state === "stopped" || self.session.sessionType === "break" && self.session.state === "running"){
-          self.session = new Session("work", 1500);
-        } else {
-          self.session = new Session("break", 300);
+      timer.toggleTimer = function(){
+        timer.session.stop();
+        if(timer.session.sessionType === "work" && timer.session.state === "stopped" || timer.session.sessionType === "break" && timer.session.state === "running"){
+          timer.session = new Session("work", 1500);
+        } else if(timer.completedWorkSessions === 4){
+          timer.session = new Session("break", 1800);
+          timer.completedWorkSessions = 0;
         }
-        self.session.start();
+        else {
+          timer.session = new Session("break", 300);
+        }
+        timer.session.start();
       };
 
-      self.reset = function(){
-        self.session.stop();
-        self.session.state = "stopped";
-        if(self.session.sessionType === "work"){
-          self.session = new Session("work", 1500);
-        } else if(self.session.sessionType === "break") {
-          self.session = new Session("break", 300);
+      timer.reset = function(){
+        timer.session.stop();
+        timer.session.state = "stopped";
+        if(timer.session.sessionType === "work"){
+          timer.session = new Session("work", 1500);
+        } else if(timer.session.sessionType === "break") {
+          timer.session = new Session("break", 300);
         }
       };
     };
