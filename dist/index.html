@@ -7,13 +7,31 @@
     <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
-  <div class="container">
-    <div class="row valign-wrapper">
-      <div class="col s12 m12 l12">
-        <ui-view></ui-view>
+  <header>
+    <ul id="slide-out" class="side-nav fixed blue-grey lighten-4">
+      <div class="row">
+        <div class="container">
+          <h4>Task History</h4>
+          <form class="col s12">
+            <div class="input-field col s12">
+              <input id="new_task" type="text" class="validate">
+              <label for="new_task">New Task</label>
+            </div>
+          </form>
+        </div>
+      </div>
+    </ul>
+  </header>
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m12 l12">
+          <ui-view></ui-view>
+        </div>
       </div>
     </div>
-  </div>
+  </main>
+  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
