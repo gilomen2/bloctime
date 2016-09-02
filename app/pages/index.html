@@ -23,7 +23,16 @@
     </ul>
   </header>
   <main>
-    <div class="container">
+    <div class="container" ng-controller="UserCtrl">
+      <div class="row right-align">
+        <ul>
+          <li>
+            <a href="#"
+              ng-click="signIn()">{{ linkText }}
+            </a>
+          </li>
+        </ul>
+      </div>
       <div class="row">
         <div class="col s12 m12 l12">
           <ui-view></ui-view>
@@ -43,7 +52,9 @@
   <script src="/scripts/app.js"></script>
   <script src="/scripts/controllers/LandingCtrl.js"></script>
   <script src="/scripts/controllers/TimerCtrl.js"></script>
+  <script src="/scripts/controllers/UserCtrl.js"></script>
   <script src="/scripts/services/TimerFactory.js"></script>
+  <script src="/scripts/services/UserAuth.js"></script>
   <script src="/scripts/filters/timecode.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.0/buzz.min.js"></script>
 </html>
