@@ -10,14 +10,16 @@
   <header>
     <ul id="slide-out" class="side-nav fixed blue-grey lighten-4">
       <div class="row">
-        <div class="container">
+        <div class="container" ng-controller="TaskCtrl">
           <h4>Task History</h4>
-          <form class="col s12">
+          <form class="col s12" ng-submit="addTask(newTask)">
             <div class="input-field col s12">
-              <input id="new_task" type="text" class="validate">
+              <input id="new_task" type="text" class="validate" ng-model="newTask">
               <label for="new_task">New Task</label>
             </div>
           </form>
+          <ul id="user-tasks">
+          </ul>
         </div>
       </div>
     </ul>
@@ -53,8 +55,11 @@
   <script src="/scripts/controllers/LandingCtrl.js"></script>
   <script src="/scripts/controllers/TimerCtrl.js"></script>
   <script src="/scripts/controllers/UserCtrl.js"></script>
+  <script src="/scripts/controllers/TaskCtrl.js"></script>
   <script src="/scripts/services/TimerFactory.js"></script>
   <script src="/scripts/services/UserAuth.js"></script>
+  <script src="/scripts/services/UserTasks.js"></script>
   <script src="/scripts/filters/timecode.js"></script>
+  <script src="/scripts/vendor/uuid.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.0/buzz.min.js"></script>
 </html>

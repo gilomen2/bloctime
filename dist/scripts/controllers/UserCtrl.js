@@ -11,6 +11,7 @@
       });
     };
 
+
     $scope.$watch('user', function(newVal, oldVal){
       if(!newVal.displayName){
         $scope.linkText = "Sign In";

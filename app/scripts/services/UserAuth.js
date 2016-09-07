@@ -13,6 +13,7 @@
         var token = result.credential.accessToken;
         // The signed-in user info.
         UserAuth.user = result.user;
+        console.log(result.user);
         return result;
       }).catch(function(error) {
         // Handle Errors here.
