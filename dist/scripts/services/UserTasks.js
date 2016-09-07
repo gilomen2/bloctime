@@ -10,7 +10,6 @@
 
     UserTasks.createTask = function(userId, task){
       var task_id = getUuid();
-      console.log(userId);
       var newTask = database.ref('users/' + userId + "/tasks").push({
           "task_title" : task
       });

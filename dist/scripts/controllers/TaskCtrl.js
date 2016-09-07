@@ -3,8 +3,18 @@
 
     $scope.user = {};
 
-    $scope.addTask = function(task){
+    $scope.tasks;
+
+    $scope.updateUser = function(){
       $scope.user = UserAuth.user;
+      $scope.tasks = firebase.database().ref('users/' + UserAuth.user.uid + '/tasks');
+      $scope.tasks.on('child_added', function(data) {
+        console.log(data.val().task_title);
+      });
+    };
+
+    $scope.addTask = function(task){
+      $scope.updateUser();
       UserTasks.createTask($scope.user.uid, task);
     };
 
@@ -12,10 +22,7 @@
       $('.user-tasks').append('<li>' + data + '</li>');
     }
 
-    var tasks = firebase.database().ref('users/' + $scope.user.uid + '/tasks');
-    tasks.on('child_added', function(data) {
-      displayTask(data.val().text);
-    });
+
 
     $scope.getTasks = function(){
 
