@@ -5,21 +5,21 @@
 
     $scope.tasks;
 
-    $scope.updateUser = function(){
-      $scope.user = UserAuth.user;
-      $scope.tasks = firebase.database().ref('users/' + UserAuth.user.uid + '/tasks');
-      $scope.tasks.on('child_added', function(data) {
-        console.log(data.val().task_title);
-      });
-    };
+    $scope.tasks = firebase.database().ref('users/' + UserAuth.user.uid + '/tasks');
+    $scope.tasks.on('child_added', function(data) {
+      console.log(data.val().task_title);
+      displayTask(data.val().task_title);
+
+    });
 
     $scope.addTask = function(task){
-      $scope.updateUser();
       UserTasks.createTask($scope.user.uid, task);
     };
 
     var displayTask = function(data){
-      $('.user-tasks').append('<li>' + data + '</li>');
+      var el = document.createElement('li');
+      el.innerHTML = data;
+      document.querySelector("#user-tasks").appendChild(el);
     }
 
 

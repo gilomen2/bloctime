@@ -1,9 +1,16 @@
 (function(){
-  function UserAuth(){
+  function UserAuth($rootScope){
 
     var UserAuth = {};
 
-    UserAuth.user = null;
+    UserAuth.user = {};
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        UserAuth.user = user;
+        $rootScope.$broadcast('UserAuth.userAuthenticated');
+      }
+    });
 
     var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -31,5 +38,5 @@
 
   angular
     .module('bloctime')
-    .factory('UserAuth', UserAuth);
+    .factory('UserAuth', ['$rootScope', UserAuth]);
 })();
