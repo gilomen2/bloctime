@@ -28,9 +28,14 @@
     <div class="container" ng-controller="UserCtrl">
       <div class="row right-align">
         <ul>
-          <li>
+          <li ng-show="!user">
             <a href="#"
               ng-click="signIn()">{{ linkText }}
+            </a>
+          </li>
+          <li ng-show="user">
+            {{ user.displayName }} | <a href="#" 
+              ng-click="signOut()"> {{ linkText }}
             </a>
           </li>
         </ul>

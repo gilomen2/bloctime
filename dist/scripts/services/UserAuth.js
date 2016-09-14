@@ -3,12 +3,15 @@
 
     var UserAuth = {};
 
-    UserAuth.user = {};
+    UserAuth.user = firebase.auth().currentUser !== null ? firebase.auth().currentUser : null;
 
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         UserAuth.user = user;
         $rootScope.$broadcast('UserAuth.userAuthenticated');
+      } else {
+        UserAuth.user = null;
+        $rootScope.$broadcast('UserAuth.userSignedOut');
       }
     });
 
@@ -19,8 +22,8 @@
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = result.credential.accessToken;
         // The signed-in user info.
-        UserAuth.user = result.user;
-        return result;
+        // UserAuth.user = result.user;
+        // return result;
       }).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -31,7 +34,15 @@
         var credential = error.credential;
         // ...
       });
-    }
+    };
+
+    UserAuth.signOut = function(){
+      firebase.auth().signOut().then(function() {
+        $rootScope.$broadcast('UserAuth.userSignedOut');
+      }, function(error) {
+        alert("Whoops!");
+      });
+    };
 
     return UserAuth;
   }

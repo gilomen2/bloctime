@@ -1,31 +1,34 @@
 (function(){
   function UserCtrl($scope, UserAuth){
 
-    // $scope.user = {};
+    $scope.user = UserAuth.user;
 
-    $scope.linkText = "Sign In";
+    $scope.linkText = $scope.user ? "Sign Out" : "Sign In";
 
     $scope.signIn = function(){
-      // UserAuth.signIn().then(function(result){
-      //   $scope.$apply(function(){
-      //     $scope.user = result.user;
-      //   });
-      // });
       UserAuth.signIn();
     };
 
+    $scope.signOut = function(){
+      UserAuth.signOut();
+    };
+
     $scope.$on('UserAuth.userAuthenticated', function(){
+      console.log("UserAuthenticated");
       $scope.user = UserAuth.user;
-      $scope.linkText = $scope.user.displayName;
+      $scope.$apply(function(){
+        $scope.linkText = "Sign Out";
+      });
     });
 
-    // $scope.$watch('UserAuth.user', function(newVal, oldVal){
-    //   if(!newVal.displayName){
-    //     $scope.linkText = "Sign In";
-    //   } else {
-    //     $scope.linkText = newVal.displayName;
-    //   }
-    // }, true);
+    $scope.$on('UserAuth.userSignedOut', function(){
+      console.log("UserSignedOut");
+      $scope.user = null;
+      $scope.$apply(function(){
+        $scope.linkText = "Sign In";
+      });
+    })
+
   };
 
 

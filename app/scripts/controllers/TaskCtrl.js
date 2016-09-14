@@ -3,14 +3,13 @@
 
     $scope.user = {};
 
-    $scope.tasks;
-
-    $scope.tasks = firebase.database().ref('users/' + UserAuth.user.uid + '/tasks');
-    $scope.tasks.on('child_added', function(data) {
-      console.log(data.val().task_title);
-      displayTask(data.val().task_title);
-
-    });
+    // $scope.tasks = firebase.database().ref('users/' + UserAuth.user.uid + '/tasks');
+    //
+    // $scope.tasks.on('child_added', function(data) {
+    //   console.log(data.val().task_title);
+    //   displayTask(data.val().task_title);
+    //
+    // });
 
     $scope.addTask = function(task){
       UserTasks.createTask($scope.user.uid, task);
