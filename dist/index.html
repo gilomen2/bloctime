@@ -5,6 +5,7 @@
     <title>Bloc Base Project</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
     <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 <body>
   <header>
@@ -16,10 +17,11 @@
             <div class="input-field col s12">
               <input id="new_task" type="text" class="validate" ng-model="newTask">
               <label for="new_task">New Task</label>
+              <ul id="user-tasks">
+
+              </ul>
             </div>
           </form>
-          <ul id="user-tasks">
-          </ul>
         </div>
       </div>
     </ul>
@@ -34,7 +36,7 @@
             </a>
           </li>
           <li ng-show="user">
-            {{ user.displayName }} | <a href="#" 
+            {{ user.displayName }} | <a href="#"
               ng-click="signOut()"> {{ linkText }}
             </a>
           </li>

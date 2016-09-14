@@ -19,8 +19,7 @@
 
     var createTaskListener = function(){
       return $scope.tasks.on('child_added', function(data) {
-        console.log(data.val().task_title);
-        displayTask(data.val().task_title);
+        displayTask(data.getKey(), data.val().task_title);
       });
     };
 
@@ -32,10 +31,20 @@
       UserTasks.createTask($scope.user.uid, task);
     };
 
-    var displayTask = function(data){
-      var el = document.createElement('li');
-      el.innerHTML = data;
-      document.querySelector("#user-tasks").appendChild(el);
+    var displayTask = function(key, value){
+      var li = document.createElement('li');
+      li.id = "li-" + key;
+      li.className += "hidden";
+      var el = document.createElement('input');
+      el.type = "checkbox";
+      el.id = key;
+      var label = document.createElement('label');
+      label.htmlFor = key;
+      label.innerHTML = value;
+      li.appendChild(el);
+      li.appendChild(label);
+      document.querySelector("#user-tasks").appendChild(li);
+      document.querySelector("#li-" + key).className = "animated fadeIn";
     };
   };
 
