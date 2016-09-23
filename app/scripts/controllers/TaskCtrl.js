@@ -3,23 +3,49 @@
 
     $scope.user = UserAuth.user;
 
-    $scope.tasks = null;
+    $scope.firebaseTasks = null;
+
+    $scope.userTasks = [];
+
+    $scope.hello = "hi";
 
     $scope.$on('UserAuth.userAuthenticated', function(){
       $scope.user = UserAuth.user;
-      $scope.tasks = firebase.database().ref('users/' + $scope.user.uid + '/tasks');
-      createTaskListener();
+      $scope.firebaseTasks = firebase.database().ref('users/' + $scope.user.uid + '/tasks');
+      createAddTaskListener();
+      createRemoveTaskListener();
     });
 
     $scope.$on('UserAuth.userSignedOut', function(){
       $scope.user = null;
-      $scope.tasks = null;
+      $scope.firebaseTasks = null;
       clearTasks();
     });
 
-    var createTaskListener = function(){
-      return $scope.tasks.on('child_added', function(data) {
-        displayTask(data.getKey(), data.val().task_title);
+    var createAddTaskListener = function(){
+      return $scope.firebaseTasks.on('child_added', function(data) {
+        var key = data.getKey();
+        var val = data.val().task_title;
+        $scope.$apply(function(){
+          $scope.userTasks.push(
+            {
+              id: key,
+              title: val
+            }
+          );
+        })
+      });
+    };
+
+    var createRemoveTaskListener = function(){
+      return $scope.firebaseTasks.on('child_removed', function(data) {
+        debugger;
+        var key = data.getKey();
+        var val = data.val().task_title;
+        $scope.$apply(function(){
+          var i = $scope.userTasks.map(function(x){ return x.id; }).indexOf(key);
+          $scope.userTasks.splice(i, 1);
+        });
       });
     };
 
@@ -29,6 +55,12 @@
 
     $scope.addTask = function(task){
       UserTasks.createTask($scope.user.uid, task);
+    };
+
+    $scope.markDone = function(task){
+        var i = $scope.userTasks.map(function(x){ return x.id; }).indexOf(task);
+        $scope.userTasks.splice(i, 1);
+        console.log($scope.userTasks);
     };
 
     var displayTask = function(key, value){
