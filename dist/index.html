@@ -18,7 +18,7 @@
               <input id="new_task" type="text" class="validate" ng-model="newTask">
               <label for="new_task">New Task</label>
               <ul id="user-tasks">
-                <ng-include src="'/templates/directives/checkbox.html'"></ng-include>
+                <checkbox ng-repeat="task in userTasks" task-data="task"></checkbox>
               </ul>
             </div>
           </form>
@@ -66,7 +66,7 @@
   <script src="/scripts/services/TimerFactory.js"></script>
   <script src="/scripts/services/UserAuth.js"></script>
   <script src="/scripts/services/UserTasks.js"></script>
+  <script src="/scripts/directives/checkbox.js"></script>
   <script src="/scripts/filters/timecode.js"></script>
-  <script src="/scripts/vendor/uuid.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/buzz/1.1.0/buzz.min.js"></script>
 </html>

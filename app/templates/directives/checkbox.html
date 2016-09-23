@@ -1,18 +1,4 @@
-<!-- var li = document.createElement('li');
-li.id = "li-" + key;
-li.className += "hidden";
-var el = document.createElement('input');
-el.type = "checkbox";
-el.id = key;
-var label = document.createElement('label');
-label.htmlFor = key;
-label.innerHTML = value;
-li.appendChild(el);
-li.appendChild(label);
-document.querySelector("#user-tasks").appendChild(li);
-document.querySelector("#li-" + key).className = "animated fadeIn"; -->
-
-<li ng-repeat="task in userTasks">
+<li>
    <input type="checkbox" id="{{ task.id }}" ng-click="markDone(task.id)">
    <label for="{{ task.id }}">{{ task.title }}</label>
 </li>
