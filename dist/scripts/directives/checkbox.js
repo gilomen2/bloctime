@@ -6,13 +6,15 @@
       replace: true,
       restrict: 'E',
       scope: {
-        task: "=taskData"
+        task: "=taskData",
+        ctrlMarkDone: '&callbackFn'
       },
       link: function(scope, element, attributes){
         var input = $(element);
 
         scope.markDone = function(task){
           $(element).fadeOut();
+          scope.ctrlMarkDone({task: task});
         }
 
 

@@ -39,7 +39,6 @@
 
     var createRemoveTaskListener = function(){
       return $scope.firebaseTasks.on('child_removed', function(data) {
-        debugger;
         var key = data.getKey();
         var val = data.val().task_title;
         $scope.$apply(function(){
@@ -57,10 +56,10 @@
       UserTasks.createTask($scope.user.uid, task);
     };
 
-    $scope.markDone = function(task){
-        var i = $scope.userTasks.map(function(x){ return x.id; }).indexOf(task);
-        $scope.userTasks.splice(i, 1);
-        console.log($scope.userTasks);
+    $scope.taskMarkDone = function(task){
+      var i = $scope.userTasks.map(function(x){ return x.id; }).indexOf(task);
+      $scope.userTasks.splice(i, 1);
+      UserTasks.removeTask($scope.user.uid, task);
     };
 
     var displayTask = function(key, value){
