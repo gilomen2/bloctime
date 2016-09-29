@@ -17,6 +17,10 @@
           scope.ctrlMarkDone({task: task});
         }
 
+        // scope.addTask = function(){
+        //   $(element).fadeIn();
+        // }
+
 
       }
     }
