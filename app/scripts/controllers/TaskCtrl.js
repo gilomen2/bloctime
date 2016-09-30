@@ -33,14 +33,13 @@
 
     $scope.addTask = function(task){
       var newTask = UserTasks.createTask($scope.user.uid, task);
-      console.log(newTask);
-      $scope.$apply(function(){
-        $scope.userTasks.push(newTask);
-      });
+      $scope.userTasks.push(newTask);
+      return task;
     };
 
-    $scope.taskMarkDone = function(task){
-      var i = $scope.userTasks.map(function(x){ return x.id; }).indexOf(task);
+    $scope.markDone = function(task){
+      debugger;
+      var i = $scope.userTasks.map(function(x){ return x.id; }).indexOf(task.id);
       $scope.userTasks.splice(i, 1);
       UserTasks.removeTask($scope.user.uid, task);
     };

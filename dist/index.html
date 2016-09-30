@@ -18,7 +18,7 @@
               <input id="new_task" type="text" class="validate" ng-model="newTask">
               <label for="new_task">New Task</label>
               <ul id="user-tasks">
-                <checkbox ng-repeat="task in userTasks" task-data="task" callback-fn="taskMarkDone(task)"></checkbox>
+                <checkbox ng-repeat="task in userTasks" task-data="task"></checkbox>
               </ul>
             </div>
           </form>
