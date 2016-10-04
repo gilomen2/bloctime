@@ -1,5 +1,5 @@
 (function(){
-  function UserTasks(){
+  function UserTasks($rootScope){
     var UserTasks = {};
 
     var database = firebase.database();
@@ -14,6 +14,7 @@
             title: snap[key].task_title
           });
         }
+        console.log('UserTasks.getTasks promise')
         return data;
       });
     };
@@ -30,8 +31,8 @@
     };
 
     UserTasks.removeTask = function(userId, task){
-      database.ref('users/' + userId + '/tasks/' + task.id).remove().then(function(){
-        console.log('Removed!');
+      return database.ref('users/' + userId + '/tasks/' + task.id).remove().then(function(){
+        $rootScope.$broadcast('Task.taskRemoved', task);
       });
     };
 
@@ -40,5 +41,5 @@
 
   angular
     .module('bloctime')
-    .factory('UserTasks', UserTasks);
+    .factory('UserTasks', ['$rootScope', UserTasks]);
 })();

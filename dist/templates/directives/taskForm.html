@@ -1,0 +1,12 @@
+<form class="col s12" ng-submit="addTask(newTask)">
+  <div class="input-field col s12">
+    <input id="new_task" type="text" class="validate" ng-model="newTask">
+    <label for="new_task">New Task</label>
+    <ul id="user-tasks">
+      <li ng-repeat="task in userTasks track by task.id" task-data="task">
+        <input type="checkbox" id="{{ task.id }}" ng-click="markDone(task)">
+        <label for="{{ task.id }}">{{ task.title }}</label>
+      </li>
+    </ul>
+  </div>
+</form>

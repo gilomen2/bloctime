@@ -2,28 +2,27 @@
   function TaskCtrl($scope, UserAuth, UserTasks){
 
     $scope.user = UserAuth.user;
-
-    $scope.firebaseTasks = null;
-
     $scope.userTasks = [];
 
     $scope.$on('UserAuth.userAuthenticated', function(){
       $scope.user = UserAuth.user;
-      $scope.firebaseTasks = firebase.database().ref('users/' + $scope.user.uid + '/tasks');
-      getTasks();
+      getTasks().then(function(response){
+        $scope.$apply(function(){
+          console.log('apply?')
+          return $scope.userTasks = response;
+        })
+      });
     });
 
     $scope.$on('UserAuth.userSignedOut', function(){
       $scope.user = null;
-      $scope.firebaseTasks = null;
       clearTasks();
     });
 
     var getTasks = function(){
-      UserTasks.getTasks($scope.user.uid).then(function(response){
-        $scope.$apply(function(){
-          $scope.userTasks = response;
-        });
+      return UserTasks.getTasks($scope.user.uid).then(function(response){
+        console.log('TaskCtrl getTasks promise')
+        return response;
       });
     };
 
@@ -31,17 +30,21 @@
       document.querySelector("#user-tasks").innerHTML = '';
     };
 
-    $scope.addTask = function(task){
+    $scope.updateUserTasks = function(task){
+      var i = $scope.userTasks.map(function(x){ return x.id; }).indexOf(task.id);
+      return $scope.$apply(function(){
+        $scope.userTasks.splice(i, 1);
+      });
+    };
+
+    $scope.removeTask = function(task){
+      UserTasks.removeTask($scope.user.uid, task);
+    }
+
+    $scope.createTask = function(task){
       var newTask = UserTasks.createTask($scope.user.uid, task);
       $scope.userTasks.push(newTask);
       return task;
-    };
-
-    $scope.markDone = function(task){
-      debugger;
-      var i = $scope.userTasks.map(function(x){ return x.id; }).indexOf(task.id);
-      $scope.userTasks.splice(i, 1);
-      UserTasks.removeTask($scope.user.uid, task);
     };
   };
 

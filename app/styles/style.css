@@ -6,6 +6,22 @@ main{
   display: none;
 }
 
+.ng-enter,
+.ng-leave
+{
+  animation-duration: 450ms;
+  animation-fill-mode: both;
+  animation-timing-function: linear;
+}
+
+.ng-enter {
+  animation-name: fadeIn;
+}
+
+.ng-leave {
+  animation-name: fadeOut;
+}
+
 @media only screen and (max-width: 992px){
   header, main, footer {
       padding-left: 0;
