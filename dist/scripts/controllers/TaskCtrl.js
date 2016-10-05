@@ -4,25 +4,41 @@
     $scope.user = UserAuth.user;
     $scope.userTasks = [];
 
+    $scope.$watch(function(newVal, oldVal){
+      $scope.userTasks = newVal;
+    })
+
     $scope.$on('UserAuth.userAuthenticated', function(){
       $scope.user = UserAuth.user;
-      getTasks().then(function(response){
-        $scope.$apply(function(){
-          console.log('apply?')
-          return $scope.userTasks = response;
-        })
-      });
+      getTasks();
     });
 
     $scope.$on('UserAuth.userSignedOut', function(){
       $scope.user = null;
+      $scope.userTasks = [];
       clearTasks();
     });
 
     var getTasks = function(){
-      return UserTasks.getTasks($scope.user.uid).then(function(response){
-        console.log('TaskCtrl getTasks promise')
-        return response;
+      UserTasks.getTasks($scope.user.uid).then(function(snapshot){
+        debugger;
+        console.log(snapshot);
+        var snap = snapshot.val();
+        var data = [];
+        for (var key in snap) {
+          data.push({
+            id: key,
+            title: snap[key].task_title
+          });
+        }
+        $scope.userTasks = data;
+        // debugger;
+        // $scope.$apply(function(){
+        //   debugger;
+        //   $scope.userTasks = data;
+        // });
+      }).catch(function(reason){
+        console.log(reason);
       });
     };
 

@@ -5,18 +5,7 @@
     var database = firebase.database();
 
     UserTasks.getTasks = function(userId){
-      return database.ref('users/' + userId + '/tasks').once('value').then(function(snapshot){
-        var snap = snapshot.val();
-        var data = [];
-        for (var key in snap) {
-          data.push({
-            id: key,
-            title: snap[key].task_title
-          });
-        }
-        console.log('UserTasks.getTasks promise')
-        return data;
-      });
+      return database.ref('users/' + userId + '/tasks').once('value');
     };
 
     UserTasks.createTask = function(userId, task){
