@@ -32,11 +32,11 @@
           });
         }
         $scope.userTasks = data;
-        // debugger;
-        // $scope.$apply(function(){
-        //   debugger;
-        //   $scope.userTasks = data;
-        // });
+        debugger;
+        $scope.$apply(function(){
+          debugger;
+          $scope.userTasks = data;
+        });
       }).catch(function(reason){
         console.log(reason);
       });
