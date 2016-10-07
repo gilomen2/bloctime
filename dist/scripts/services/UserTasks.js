@@ -4,7 +4,7 @@
 
     var database = firebase.database();
 
-    UserTasks.getTasks = function(userId){
+    UserTasks.retrieveFirebaseTasks = function(userId){
       return database.ref('users/' + userId + '/tasks').once('value');
     };
 

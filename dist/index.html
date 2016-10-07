@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <title>Bloc Base Project</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/styles/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 </head>
 <body>
   <header>
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">done_all</i></a>
     <ul id="slide-out" class="side-nav fixed blue-grey lighten-4">
       <div class="row">
         <div class="container" ng-controller="TaskCtrl">
-          <h4>Task History</h4>
+          <h4>Tasks</h4>
           <task-form></task-form>
         </div>
       </div>
@@ -41,7 +43,6 @@
       </div>
     </div>
   </main>
-  <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
