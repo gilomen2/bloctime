@@ -1,0 +1,20 @@
+<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">done_all</i></a>
+<ul id="slide-out" class="side-nav blue-grey lighten-4">
+  <div class="row">
+    <div class="container">
+      <h4>{{ title }}</h4>
+      <form class="col s12" ng-submit="addTask(newTask)">
+        <div class="input-field col s12">
+          <input id="new_task" type="text" class="validate" ng-model="newTask">
+          <label for="new_task">New Task</label>
+          <ul id="user-tasks">
+            <li ng-repeat="task in userTasks track by task.id" task-data="task">
+              <input type="checkbox" id="{{ task.id }}" ng-click="markDone(task)">
+              <label for="{{ task.id }}">{{ task.title }}</label>
+            </li>
+          </ul>
+        </div>
+      </form>
+    </div>
+  </div>
+</ul>

@@ -4,6 +4,8 @@
     $scope.user = UserAuth.user;
     $scope.userTasks = [];
 
+    $scope.ctrlTitle = "Dsfafds";
+
     $scope.$on('UserAuth.userAuthenticated', function(){
       $scope.user = UserAuth.user;
       getTasks();

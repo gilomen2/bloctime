@@ -28,7 +28,6 @@
         $scope.linkText = "Sign In";
       });
     })
-
   }
 
 
