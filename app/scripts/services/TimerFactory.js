@@ -7,6 +7,11 @@
       timer.session = new Session("work", 1500);
       timer.completedWorkSessions = 0;
 
+      var mySound = new buzz.sound("assets/audio/ding", {
+        formats: ['mp3'],
+        preload: true
+      });
+
       function Session(type, time){
         var self = this;
         self.time = time;
@@ -16,7 +21,7 @@
 
         self.start = function(){
           interval = $interval(decrementTime, 1000, self.time);
-          interval.then(adjustCompletedSessions);
+          interval.then(sessionComplete);
           self.state = "running";
         };
 
@@ -28,7 +33,8 @@
           self.time = self.time - 1;
         };
 
-        var adjustCompletedSessions = function(){
+        var sessionComplete = function(){
+          mySound.play();
           if(self.sessionType === "work"){
             timer.completedWorkSessions ++;
           }

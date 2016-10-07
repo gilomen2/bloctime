@@ -11,9 +11,14 @@
         controller: 'LandingCtrl as landing',
         templateUrl: '/templates/landing.html'
       });
+    $('.button-collapse').sideNav({
+      menuWidth: 450,
+      edge: 'left',
+      closeOnClick: true
+    });
   }
 
   angular
-    .module('bloctime', ['ui.router', 'firebase', 'ui.materialize'])
+    .module('bloctime', ['ui.router', 'firebase', 'ui.materialize', 'ngAnimate'])
     .config(config);
 })();
